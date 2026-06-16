@@ -1,3 +1,4 @@
+import { Footer } from "./Components/Footer/Footer"
 import Header from "./Components/Header"
 
 function App() {
@@ -6,6 +7,7 @@ function App() {
     <>
       <Header></Header>
       <div>123</div>
+      <Footer></Footer>
     </>
   )
 }
