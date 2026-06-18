@@ -40,10 +40,10 @@ export function Footer(){
                         <FooterAcordion mi={mi} information={information} informationTitele={t("information.title")} profit={profit} profitTitle={t("profit.title")} ></FooterAcordion>
                     )                     
                 }
-                <Divider sx={{ borderColor: '#595959', m: "0 26px 20px", display: {md: "block", xs: "none"}}} />
+                <Divider sx={{ borderColor: '#595959', m: {md: "0 66px 22px", xs: "0 17px 22px"}, display: {md: "block", xs: "none"}}} />
 
                 <Box sx={{display: {md: "flex", xs: "block"}, justifyContent: "space-between"}}>
-                    <Box sx={{p: "0 26px"}}>
+                    <Box sx={{p: {md: "0 66px", xs: "0 17px 10px"}}}>
                         <Typography 
                             sx={{
                                 color: "#FFFFF8",
@@ -65,14 +65,14 @@ export function Footer(){
                             </Box>
                         </Box>
                     </Box>
-                    <Stack spacing={"10px"} 
+                    <Stack spacing={"10px"}
                         sx={{
                             borderTop: {
                                 md: "none",
                                 xs: "1px solid #595959"
                             },
                             pt: {md: "none", xs: "10px"},
-                            p: "0 26px 30px",
+                            p: {md: "0 66px 30px", xs: "15px 17px 30px"} ,
                         }}>
                         <Typography
                             sx={{

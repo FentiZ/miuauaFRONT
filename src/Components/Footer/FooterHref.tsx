@@ -25,10 +25,10 @@ export default function FooterHref({mi, information, profit, informationTitele, 
     }
 
     return(
-        <Grid container spacing={"20px"} sx={{p: "26px"}}>
+        <Grid container spacing={"20px"} sx={{p: {md: "26px 66px", xs: "26px"}}}>
             <Grid size={2.4}>
                 <Box component={"h2"} sx={{m: "5px 0"}}>
-                    <Link to={"/"}>
+                    <Link to={"/miuauaFRONT/"}>
                         <Box component={"img"} src={miLogo} sx={{width: normalSize, height: normalSize}}></Box>
                     </Link>
                 </Box>
@@ -36,7 +36,7 @@ export default function FooterHref({mi, information, profit, informationTitele, 
 
             </Grid>
             <Grid size={2.4}>
-                <ObjectHref title={informationTitele} description={information} descriptionHref={informationHref} ></ObjectHref>
+                <ObjectHref title={informationTitele} description={information} descriptionHref={informationHref}></ObjectHref>
             </Grid>
             <Grid size={2.4}>
                 <ObjectHref title={profitTitle} description={profit} descriptionHref={profitHref} ></ObjectHref>

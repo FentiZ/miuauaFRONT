@@ -13,7 +13,7 @@ function ObjectMap({description, descriptionHref}: IFooreHref){
         <Stack spacing={"5px"}>
             {
                 description.map((item, index) => (
-                    <Box component={Link} to={descriptionHref[index]} sx={{textDecoration: "none"}}>
+                    <Box key={index} component={Link} to={descriptionHref[index]} sx={{textDecoration: "none"}}>
                         <Typography sx={text}>{item}</Typography>
                     </Box>
                 ))

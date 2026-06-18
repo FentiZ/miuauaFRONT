@@ -13,7 +13,7 @@ const normalSize = {
 
 const acard = {
     borderRadius: "none",
-    p: "0 26px",
+    p: {md: "0 66px", xs: "0 17px"},
     '& .MuiAccordionSummary-content': {
         margin: 0,
     },
@@ -56,7 +56,7 @@ function FooterAcordion({mi, information, profit, informationTitele, profitTitle
                         </Link>
                     </Box>
                 </AccordionSummary>
-                <AccordionDetails sx={{p: "0 26px 16px"}}>
+                <AccordionDetails sx={{p: {md: "0 66px 15px", xs: "0 17px 15px"}}}>
                     <FooterObjectMap description={mi} descriptionHref={miHref}></FooterObjectMap>
                 </AccordionDetails>
             </Accordion>
@@ -66,7 +66,7 @@ function FooterAcordion({mi, information, profit, informationTitele, profitTitle
                        {informationTitele}
                     </Box>
                 </AccordionSummary>
-                <AccordionDetails sx={{p: "0 26px 16px"}}>
+                <AccordionDetails sx={{p: {md: "0 66px 15px", xs: "0 17px 15px"}}}>
                     <FooterObjectMap description={information} descriptionHref={informationHref}></FooterObjectMap>
                 </AccordionDetails>
             </Accordion>
@@ -76,7 +76,7 @@ function FooterAcordion({mi, information, profit, informationTitele, profitTitle
                        {profitTitle}
                     </Box>
                 </AccordionSummary>
-                <AccordionDetails sx={{p: "0 26px 16px"}}>
+                <AccordionDetails sx={{p: {md: "0 66px 15px", xs: "0 17px 15px"}}}>
                     <FooterObjectMap description={profit} descriptionHref={profitHref}></FooterObjectMap>
                 </AccordionDetails>
             </Accordion>

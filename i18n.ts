@@ -8,7 +8,7 @@ import LanguageDetector from 'i18next-browser-languagedetector';
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
-    fallbackLng: "uk",
+    fallbackLng: "ua",
     ns: ["header", "footer"],
     backend: {
         loadPath: "./lang/{{lng}}/{{ns}}.json"
