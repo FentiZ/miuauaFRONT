@@ -17,7 +17,6 @@ import HeaderButton from './HeaderButton';
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
-  // Замість alpha краще використовувати theme.palette.action.focusOpacity або рядок, якщо alpha не імпортовано
   backgroundColor: 'rgba(255, 255, 255, 0.15)',
   '&:hover': {
     backgroundColor: 'rgba(255, 255, 255, 0.25)',

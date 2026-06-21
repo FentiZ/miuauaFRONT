@@ -2,7 +2,7 @@ import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined
 import BalanceOutlinedIcon from '@mui/icons-material/BalanceOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import { Box, Divider, Stack, Tooltip } from '@mui/material';
+import { Box, Divider, Stack} from '@mui/material';
 
 const boxStyle = {
     width: {lg: "40px", md: "40px", xs: "30px"},

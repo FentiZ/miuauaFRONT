@@ -11,7 +11,7 @@ registerSW({immediate: true})
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <BrowserRouter basename="/">
+    <BrowserRouter basename="/miuauaFRONT/">
       <App />
     </BrowserRouter>
   </StrictMode>,

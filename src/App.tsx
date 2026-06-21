@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router"
 import { Footer } from "./Components/Footer/Footer"
 import Header from "./Components/Header/Header"
 import { createContext, type Dispatch, type SetStateAction } from "react";
+import Home from "./Components/page/Home";
 
 interface MenuContextType {
   setTab: Dispatch<SetStateAction<number>>;
@@ -15,7 +16,7 @@ function App() {
       <Header></Header>
       <main>
         <Routes>
-          <Route index element={<div></div>}></Route>
+          <Route index element={<Home />} />
         </Routes>
       </main>
       <Footer></Footer>
