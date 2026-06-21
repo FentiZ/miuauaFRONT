@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Menu, MenuItem, Stack, Typography } from '@mui/material';
+import {Button, Box, Menu, MenuItem, Stack, Typography } from '@mui/material';
 import location from "../../assets/location-pin-svgrepo-com.svg"
 import logo from "../../assets/logo_MI___1.svg"
 import { useTranslation } from 'react-i18next';
@@ -11,13 +11,16 @@ import AppsIcon from '@mui/icons-material/Apps'
 import SearchIcon from '@mui/icons-material/Search';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
+import HeaderButton from './HeaderButton';
+
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  // Замість alpha краще використовувати theme.palette.action.focusOpacity або рядок, якщо alpha не імпортовано
+  backgroundColor: 'rgba(255, 255, 255, 0.15)',
   '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
+    backgroundColor: 'rgba(255, 255, 255, 0.25)',
   },
   marginRight: theme.spacing(2),
   marginLeft: 0,
@@ -33,11 +36,18 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
   height: '100%',
   position: 'absolute',
   top: 0,
-  right: 0, 
   pointerEvents: 'none',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
+
+  left: 0,
+  right: 'auto',
+
+  [theme.breakpoints.up('lg')]: {
+    left: 'auto',
+    right: 0,
+  },
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
@@ -45,15 +55,18 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   width: '100%',
   '& .MuiInputBase-input': {
     padding: theme.spacing(1), 
-    paddingLeft: theme.spacing(2),
-    paddingRight: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: '20ch',
+    
+    width: '20ch',
+    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    paddingRight: theme.spacing(2),
+    
+    [theme.breakpoints.up('lg')]: {
+        paddingLeft: `1em`,
     },
   },
 }));
+
 
 
 function Header(){
@@ -174,51 +187,62 @@ function Header(){
                 </Stack>
             </Box>
             <Box 
-            sx={{
-                p: { md: "0 66px", xs: "0 17px" },
-                height: "72px",
-                background: "#E3E3E3",
-                display: "flex",
-                alignItems: "center"
-            }}
-        >
-            <Grid 
-                container   
-                spacing={"10px"}
-                direction={"row"}
                 sx={{
-                    width: "100%",
-                    maxWidth: "1600px", 
-                    margin: { md: "0 auto", xs: 0 },
+                    p: { md: "0 66px", xs: "0 17px" },
+                    height: "72px",
+                    background: "#E3E3E3",
                     display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between"
-                }}    
+                    alignItems: "center"
+                }}
             >
-                <Grid size={2}>
-                    <Box component={Link} to={"/miuauaFRONT/"} sx={{ display: "flex", alignItems: "center" }}>
-                        <Box component={"img"} src={logo} alt="Logo"></Box>
+                <Stack 
+                    spacing={ {lg: "20px", md: "20px", xs: "7px"}}
+                    direction={"row"}
+                    sx={{
+                        width: "100%",
+                        maxWidth: "1600px", 
+                        margin: { md: "0 auto", xs: 0 },
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between"
+                    }}    
+                >
+                    <Box sx={{display: {lg: "block", md: "none", xs:"none"}}}>
+                        <Box component={Link} to={"/miuauaFRONT/"} sx={{ display: "flex", alignItems: "center" }}>
+                            <Box component={"img"} src={logo} alt="Logo"></Box>
+                        </Box>
                     </Box>
-                </Grid>
-                <Grid size={2}>
-                    <Button variant="contained" startIcon={<AppsIcon sx={{width: "27px", height: "27px"}}/>} sx={{bgcolor: "#FF6900", p: "5px 35px",  textTransform: 'none', fontWeight: 700, fontSize: "14px" }}>
-                        {t("catalog")}
-                    </Button>
-                </Grid>      
-                <Grid size={5}>
-                    <Search sx={{bgcolor: "#fff", "&:hover": {bgcolor: "#fff"}}}>
-                        <StyledInputBase
-                            placeholder={t("search")}
-                            inputProps={{ 'aria-label': 'search' }}
-                        />
-                        <SearchIconWrapper sx={{bgcolor: "#FF6900", borderRadius: "0 5px 5px 0", width: "15px"}}>
-                            <SearchIcon sx={{color: "#ffff"}}/>
-                        </SearchIconWrapper>
-                    </Search>
-                </Grid>
-                <Grid size={3}>
-                </Grid>              
-            </Grid>
+                    <Box sx={{display: {lg: "block", md: "none", xs:"none"}}}>
+                        <Button variant="contained" 
+                            startIcon={<AppsIcon sx={{width: "27px", height: "27px"}}/>} 
+                            sx={{
+                                bgcolor: "#FF6900",
+                                p: "5px 35px",
+                                textTransform: 'none',
+                                fontWeight: 700,
+                                fontSize: "14px",
+                                height: "40px",
+                                gap: "12px"
+                            }}
+                        >
+                            {t("catalog")}
+                        </Button>
+                    </Box>      
+                    <Box sx={{width: "100vw", minWidth: "150px"}}>
+                        <Search sx={{bgcolor: "#fff", "&:hover": {bgcolor: "#fff"}}}>
+                            <StyledInputBase
+                                placeholder={t("search")}
+                                inputProps={{ 'aria-label': 'search' }}
+                            />
+                            <SearchIconWrapper sx={{bgcolor: {lg: "#FF6900", md: "none"}, borderRadius: "0 5px 5px 0", width: "15px"}}>
+                                <SearchIcon sx={{color: {lg: "#ffff"}}}/>
+                            </SearchIconWrapper>
+                        </Search>
+                    </Box>
+                    <Box sx={{display: "flex", alignItems: "center"}}>
+                        <HeaderButton></HeaderButton>
+                    </Box>
+                </Stack>
             </Box>
         </Box>
     )
