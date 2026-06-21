@@ -37,16 +37,19 @@ function Card(card: ICard){
     return(
         <Box    
             sx={{
+                transition: "all .4s ease",
+                "&:hover": {
+                    boxShadow: "0 0 10px rgba(0, 0, 0, .4)"
+                },
                 width: "100%", 
                 background: "#fff",
                 boxShadow: "0 0 10px rgba(0, 0, 0, .07)",
-                transition: "all .3s ease",
                 padding: "25px 16px",
                 boxSizing: "border-box",
-                display: {xs: "flex", md: "block"}
+                display: {xs: "flex", sm: "block", md: "block"}
             }}
         >
-            <Box sx={{margin: "0 37px", pb: {lg: "36px"}, display: "flex", alignItems: 'center'}}>
+            <Box sx={{margin: "0 37px", pb: {lg: "36px"}, display: "flex", alignItems: 'center', justifyContent: "center"}}>
                 <Box component={"img"} src={card.img} 
                     sx={{
                         objectFit: "cover",

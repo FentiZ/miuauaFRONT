@@ -1,35 +1,80 @@
-import { Box, Grid, Typography } from "@mui/material"
-import Card from "../Card"
-import { card, cardComent } from "../../Data/Temp/CardData"
+import { Box, Stack } from "@mui/material"
+import CardList from "../CardList"
+
+const itemOne = [
+    "ТОП товари",
+    "Смартфони",
+    "Телевізори",
+    "Планшети",
+    "Роботи-пилососи",
+    "Електросамокати",
+    "Ноутбуки",
+    "Wi-Fi роутери",
+    "Портативні батареї",
+    "Навушники",
+    "Смарт-годинники",
+    "Шурупокрути",
+    "Монітори",
+    "Мультипечі",
+    "Електрочайники",
+    "Пилососи",
+    "Портативні колонки",
+    "Спорт і здоров'я",
+    "Персональний догляд",
+    "Викрутки",
+    "Настільні лампи",
+]
+
+const itemTwo = [
+    "ТОП товари",
+    "Смартфони",
+    "Телевізори",
+    "Планшети",
+    "Портативні батареї",
+    "Навушники",
+    "Смарт-годинники",
+    "Фітнес-браслети",
+    "Монітори",
+    "Портативні колонки"
+]
+
+const itemTree = [
+    "ТОП товари",
+    "Смартфони",
+    "Телевізори",
+    "Планшети",
+    "Роботи-пилососи",
+    "Електросамокати",
+    "Ноутбуки",
+    "Wi-Fi роутери",
+    "Портативні батареї",
+    "Навушники",
+    "Смарт-годинники",
+    "Фітнес-браслети",
+    "Монітори",
+    "Проектори",
+    "Мультипечі",
+    "Електрочайники",
+    "Пилососи",
+    "Портативні колонки",
+    "Спорт і здоров'я",
+    "Персональний догляд"
+]
 
 function Home(){
     return(
         <Box sx={{
                 maxWidth: {md: "1600px", lg: "2400"},
-                margin: {md: "0 auto",sx: 0},
-                p: {md: "0 66px", xs: "0 17px"}
+                margin: {md: "40px auto", sx: "40px 0"},
+                p: {md: "0 66px", xs: "0 17px"},
             }}
-        >
-        <Grid container spacing={"5px"}>
-            <Grid size={{lg: 2.4, md: 4, sm: 6, xs: 12}}>
-                <Card {...card}></Card>
-            </Grid>
-            <Grid size={{lg: 2.4, md: 4, sm: 6, xs: 12}}>
-                <Card {...cardComent}></Card>
-            </Grid>
-            <Grid size={{lg: 2.4, md: 4, sm: 6, xs: 12}}>
-                <Card {...card}></Card>
-            </Grid>
-            <Grid size={{lg: 2.4, md: 4, sm: 6, xs: 12}}>
-                <Card {...cardComent}></Card>
-            </Grid>
-            <Grid size={{lg: 2.4, md: 4, sm: 6, xs: 12}}>
-                <Card {...card}></Card>
-            </Grid>
-            <Grid size={{lg: 2.4, md: 4, sm: 6, xs: 12}}>
-                <Card {...cardComent}></Card>
-            </Grid>
-        </Grid>
+        >   
+            <Stack spacing={"50px"}>
+
+                <CardList title="Лідери продажу" category={itemOne}></CardList>
+                <CardList title="Новинки" category={itemTwo}></CardList>
+                <CardList title="Краща цiна" category={itemTree}></CardList>
+            </Stack>
         </Box>
     )
 }
