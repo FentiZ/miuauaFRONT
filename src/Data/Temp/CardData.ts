@@ -7,7 +7,7 @@ import promo3 from "../../assets/promo/unpacking_300_76x30_5.svg";
 const cardComent: ICard = {
     id: 1,
     img: Img,
-    title: "Телевизор Xiaomi TV S Mini LED 65 2026",
+    title: "Телевизор",
     star: 5.0,
     coment: 5,
     notAction: 49999,

@@ -5,14 +5,14 @@ import "../i18n.ts";
 import "./main.css"
 
 import {registerSW} from "virtual:pwa-register"
-import { BrowserRouter } from 'react-router';
+import { HashRouter } from 'react-router';
 
 registerSW({immediate: true})
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <BrowserRouter basename="/miuauaFRONT/">
+    <HashRouter>
       <App />
-    </BrowserRouter>
+    </HashRouter>
   </StrictMode>,
 )

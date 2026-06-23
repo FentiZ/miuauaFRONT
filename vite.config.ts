@@ -38,5 +38,5 @@ export default defineConfig({
       manifest: manifest,
     }
   )],
-  base: '/miuauaFRONT/',
+  base: '', 
 })
