@@ -1,5 +1,6 @@
-import { Box, Stack } from "@mui/material"
+import { Box, Grid, Stack } from "@mui/material"
 import CardList from "../CardList"
+import Carusel from "../Carusel"
 
 const itemOne = [
     "ТОП товари",
@@ -69,8 +70,13 @@ function Home(){
                 p: {md: "0 66px", xs: "0 17px"},
             }}
         >   
+            <Grid container>
+                <Grid></Grid>
+                <Grid size={{lg:8, md: 12}}>
+                    <Carusel></Carusel>
+                </Grid>
+            </Grid>
             <Stack spacing={"50px"}>
-
                 <CardList title="Лідери продажу" category={itemOne}></CardList>
                 <CardList title="Новинки" category={itemTwo}></CardList>
                 <CardList title="Краща цiна" category={itemTree}></CardList>

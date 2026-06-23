@@ -9,7 +9,7 @@ import React from 'react';
 import HeaderLang from './HeaderLang';
 import AppsIcon from '@mui/icons-material/Apps'
 import SearchIcon from '@mui/icons-material/Search';
-import { styled, alpha } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import HeaderButton from './HeaderButton';
 
