@@ -1,6 +1,7 @@
 import { Box, Grid, Stack } from "@mui/material"
 import CardList from "../CardList"
 import Carusel from "../Carusel"
+import Menu from "../Menu"
 
 const itemOne = [
     "ТОП товари",
@@ -66,13 +67,15 @@ function Home(){
     return(
         <Box sx={{
                 maxWidth: {md: "1600px", lg: "2400"},
-                margin: {md: "40px auto", sx: "40px 0"},
+                margin: {md: "20px auto", sx: "40px 0"},
                 p: {md: "0 66px", xs: "0 17px"},
             }}
         >   
-            <Grid container>
-                <Grid></Grid>
-                <Grid size={{lg:8, md: 12}}>
+            <Grid container spacing={"20px"} sx={{mb:"20px"}}>
+                <Grid size={{lg:2.5, md: 12}}>
+                    <Menu></Menu>
+                </Grid>
+                <Grid size={{lg:9.5, md: 12}}>
                     <Carusel></Carusel>
                 </Grid>
             </Grid>

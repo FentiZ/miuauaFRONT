@@ -3,6 +3,8 @@ import BalanceOutlinedIcon from '@mui/icons-material/BalanceOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { Box, Divider, Stack} from '@mui/material';
+import Login, { type LoginRef } from '../Autorization/Login';
+import React from 'react';
 
 const boxStyle = {
     width: {lg: "40px", md: "40px", xs: "30px"},
@@ -25,17 +27,24 @@ const hover = {
 
 const dividerStyle = {borderColor: "#b4b4b4", display: {lg: "block", md: "none", xs: "none"}}
 function HeaderButton(){
+    
+    const loginRef = React.useRef<LoginRef>(null);
+    
     return(
         <Stack direction={"row"} spacing={"30px"} sx={{pl: {lg: "50px", md: "25px", xs: 0}}}>
-            <Box sx={[
-                boxStyle,
-                {
-                    display: {md: "flex", xs: "none"},
-                    '&:hover': hover
-                }
-            ]}>
+            <Box 
+                onClick={() => loginRef.current?.open()}
+                sx={[
+                    boxStyle,
+                    {
+                        display: {md: "flex", xs: "none"},
+                        '&:hover': hover
+                    }
+                ]}
+            >
                 <PersonOutlineOutlinedIcon sx={iconsStyle}/>
             </Box>
+            <Login ref={loginRef} />
             
             <Divider orientation="vertical" variant="middle" flexItem sx={dividerStyle} />
             
