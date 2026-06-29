@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import CloseIcon from "@mui/icons-material/Close"
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
-import GetProductIDs from "../api/ProductUrl";
+import { GetProductIDs } from "../api/ProductUrl";
 import type { ICardShort } from "../Interface/ICard";
 import CardBasket from "./CardBasket";
 

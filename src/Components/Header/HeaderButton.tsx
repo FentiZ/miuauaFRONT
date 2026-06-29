@@ -116,7 +116,7 @@ function HeaderButton(){
                     <ShoppingCartOutlinedIcon sx={iconsStyle}/>
                 </Badge>
             </Box>
-            <Basket onClose={() => setBasket(false)} open={getBasket}  ></Basket>
+            <Basket onClose={() => setBasket(false)} open={getBasket}></Basket>
         </Stack>
     )
 }

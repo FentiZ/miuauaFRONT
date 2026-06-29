@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router"
+import { Link, Route, Routes } from "react-router"
 import { Footer } from "./Components/Footer/Footer"
 import Header from "./Components/Header/Header"
 import { createContext, type Dispatch, type SetStateAction } from "react";
@@ -17,8 +17,8 @@ function App() {
       <Header></Header>
       <main>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/card" element={<CardInfo />} />
+          <Route path="/" element={<Home/>} />
+          <Route path="cardInfo/:id" element={<CardInfo /> } />
         </Routes>
       </main>
       <Footer></Footer>

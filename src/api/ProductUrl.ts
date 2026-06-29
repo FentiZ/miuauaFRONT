@@ -1,7 +1,7 @@
-import type { ICardShort } from "../Interface/ICard";
+import type { ICardShort, IFullCard } from "../Interface/ICard";
 import mainSrc from "./mainSrc";
 
-async function GetProductIDs(id: number[]){
+export async function GetProductIDs(id: number[]){
     const cart : ICardShort[] = [];
     for (let index = 0; index < id.length; index++) {
         const responce = await fetch(`${mainSrc}/products/${id[index]}`)
@@ -10,6 +10,14 @@ async function GetProductIDs(id: number[]){
     }
 
     return cart
-
 }
-export default GetProductIDs
+export async function GetProductID(id: number){
+    const responce = await fetch(`${mainSrc}/products/${id}`)
+    if(responce.status < 200 || responce.status > 299){
+        return responce.status
+    }
+
+    const data : IFullCard = await responce.json();         
+
+    return data
+}

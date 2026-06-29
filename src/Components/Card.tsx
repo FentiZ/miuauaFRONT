@@ -11,6 +11,7 @@ import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlin
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import Basket from "./Basket";
+import { Link } from "react-router";
 
 const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
   <Tooltip describeChild {...props} classes={{ popper: className }} />
@@ -153,12 +154,15 @@ function Card(card: ICard){
             <Box sx={{
                 display: {xs: "flex", sm: "block", md: "block"},
             }}>
-                <Box sx={{
-                    margin: {lg: "5px 10px", md: "0 37px", xs: "0" },
-                    pr: {xs: "16px", sm: 0},
-                    display: "flex",
-                    alignItems: 'center',
-                    justifyContent: "center"
+                <Box 
+                    component={Link}
+                    to={`cardInfo/${card.id}`}
+                    sx={{
+                        margin: {lg: "5px 10px", md: "0 37px", xs: "0" },
+                        pr: {xs: "16px", sm: 0},
+                        display: "flex",
+                        alignItems: 'center',
+                        justifyContent: "center"
                     }}
                 >
                     <Box component={"img"} src={card.img} 
@@ -169,7 +173,18 @@ function Card(card: ICard){
                     />
                 </Box>
                 <Stack spacing={"16px"} sx={{width: "100%"}}>
-                    <Box sx={{ height: "calc(14px * 1.4 * 2)" }}> 
+                    <Box
+                        sx={{
+                            height: "calc(14px * 1.4 * 2)",
+                            textDecoration: "none",
+                            color: "#000000",
+                            "&:hover": {
+                                color: "#5285cc"
+                            } 
+                        }}
+                        component={Link}
+                        to={`cardInfo/${card.id}`}
+                    > 
                         <Typography 
                             sx={{
                                 fontSize: "14px",
