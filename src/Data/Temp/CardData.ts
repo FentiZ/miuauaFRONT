@@ -37,7 +37,7 @@ const cardComent: ICard = {
     ]
 }
 const card: ICard = {
-    id: 1,
+    id: 2,
     img: Img,
     title: "Телевизор Xiaomi TV S Mini LED 65 2026",
     notAction: 49999,

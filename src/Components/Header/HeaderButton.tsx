@@ -2,9 +2,10 @@ import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined
 import BalanceOutlinedIcon from '@mui/icons-material/BalanceOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import { Box, Divider, Stack} from '@mui/material';
+import { Badge, Box, Divider, Stack} from '@mui/material';
 import Login, { type LoginRef } from '../Autorization/Login';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import Basket from '../Basket';
 
 const boxStyle = {
     width: {lg: "40px", md: "40px", xs: "30px"},
@@ -26,10 +27,43 @@ const hover = {
 } 
 
 const dividerStyle = {borderColor: "#b4b4b4", display: {lg: "block", md: "none", xs: "none"}}
+
 function HeaderButton(){
     
     const loginRef = React.useRef<LoginRef>(null);
     
+    const getCartCount = (): number => {
+        try {
+            const savedCart = localStorage.getItem('cart');
+            if (!savedCart || savedCart === "undefined" || savedCart === "null") return 0;
+            
+            const currentCart = JSON.parse(savedCart);
+            if (!Array.isArray(currentCart)) return 0;
+            return currentCart.reduce((totalSum, item)=>{
+                const itemQuantity = item.quantity ? Number(item.quantity) : 0;
+                return totalSum + itemQuantity;
+            }, 0)
+
+        } catch (e) {
+            return 0;
+        }
+    };
+
+    const [count, setCount] = useState<number>(() => getCartCount());
+
+    useEffect(() => {
+        const handleStorageChange = () => {
+            setCount(getCartCount()); 
+        };
+
+        window.addEventListener('storage', handleStorageChange);
+        
+        return () => {
+            window.removeEventListener('storage', handleStorageChange);
+        };
+    }, []);
+
+    const [getBasket, setBasket] = useState(false);
     return(
         <Stack direction={"row"} spacing={"30px"} sx={{pl: {lg: "50px", md: "25px", xs: 0}}}>
             <Box 
@@ -69,14 +103,20 @@ function HeaderButton(){
                 <FavoriteBorderOutlinedIcon sx={iconsStyle}/>
             </Box>
             <Divider orientation="vertical" variant="middle" flexItem sx={dividerStyle} />
-            <Box sx={[
-                boxStyle, 
-                {
-                    '&:hover': hover
-                }
-            ]}>
-                <ShoppingCartOutlinedIcon sx={iconsStyle}/>
+            <Box 
+                onClick={() => setBasket(true)}
+                sx={[
+                    boxStyle, 
+                    {
+                        '&:hover': hover
+                    }
+                ]}
+            >
+                <Badge badgeContent={count} color="error" sx={{".css-100tl8u-MuiBadge-badge": {bgcolor: "#FF6900"}}}>
+                    <ShoppingCartOutlinedIcon sx={iconsStyle}/>
+                </Badge>
             </Box>
+            <Basket onClose={() => setBasket(false)} open={getBasket}  ></Basket>
         </Stack>
     )
 }

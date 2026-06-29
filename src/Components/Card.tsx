@@ -1,6 +1,6 @@
 import { Box, Button, Rating, Stack, Typography } from "@mui/material"
 import type { ICard } from "../Interface/ICard"
-import React from "react";
+import React, {useEffect, useState } from "react";
 import { styled } from '@mui/material/styles';
 import Tooltip, {tooltipClasses, type TooltipProps } from '@mui/material/Tooltip';
 import StarRoundedIcon from '@mui/icons-material/StarRounded';
@@ -9,6 +9,8 @@ import { useTranslation } from "react-i18next";
 import BalanceOutlinedIcon from '@mui/icons-material/BalanceOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import TaskAltIcon from '@mui/icons-material/TaskAlt';
+import Basket from "./Basket";
 
 const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
   <Tooltip describeChild {...props} classes={{ popper: className }} />
@@ -75,7 +77,61 @@ function Promo(card: ICard){
 
 function Card(card: ICard){
     const {t} = useTranslation("card");
+    const [isBasketOpen, setIsBasketOpen] = useState(false);
 
+    const checkCartStatus = (): boolean => {
+        try {
+            const savedCart = localStorage.getItem('cart');
+            if (!savedCart || savedCart === "undefined" || savedCart === "null") return false;
+            
+            const currentCart = JSON.parse(savedCart);
+            return Array.isArray(currentCart) && currentCart.some((item: any) => item.id === card.id);
+        } catch (error) {
+            return false;
+        }
+    };
+
+    const [isInCart, setIsInCart] = useState<boolean>(() => checkCartStatus());
+
+    useEffect(() => {
+        const handleStorageChange = () => {
+            setIsInCart(checkCartStatus());
+        };
+
+        window.addEventListener('storage', handleStorageChange);
+        
+        return () => {
+            window.removeEventListener('storage', handleStorageChange);
+        };
+    }, [card.id]);
+
+    const handleAddToCart = () => {
+        let currentCart = [];
+        try {
+            const savedCart = localStorage.getItem('cart');
+            if (savedCart && savedCart !== "undefined" && savedCart !== "null") {
+                currentCart = JSON.parse(savedCart);
+            }
+            if (!Array.isArray(currentCart)) currentCart = [];
+        } catch (e) {
+            localStorage.removeItem('cart');
+            currentCart = [];
+        }
+        
+        const existingItem = currentCart.find((item: any) => item.id === card.id);
+        let updatedCart;
+
+        if (!existingItem) {
+            updatedCart = [...currentCart, { id: card.id, quantity: 1 }];    
+        } else {
+            updatedCart = currentCart; 
+        }
+
+        localStorage.setItem('cart', JSON.stringify(updatedCart));
+        setIsInCart(true);
+
+        window.dispatchEvent(new Event('storage'));
+    };
     return(
         <Box    
             sx={{
@@ -225,8 +281,12 @@ function Card(card: ICard){
                             </Typography>                    
                         </Box>
                         <Button variant="contained" 
+                            onClick={handleAddToCart}
                             sx={{
-                                bgcolor: "#FF6900",
+                                bgcolor: !isInCart ? "#FF6900" : "#F2F2F2",
+                                "&:hover": {
+                                    bgcolor: !isInCart ? "#FF6900" : "#e0e0e0"
+                                },
                                 textTransform: 'none',
                                 fontWeight: 700,
                                 minWidth: 0,
@@ -235,8 +295,17 @@ function Card(card: ICard){
                                 height: "32px"                            
                             }}
                         >
-                            <ShoppingCartOutlinedIcon sx={{width: "20px", height: "20px"}}/>
+                            {
+                                !isInCart ?
+                                <ShoppingCartOutlinedIcon sx={{ width: "20px", height: "20px" }} onClick={() => setIsBasketOpen(true)} />
+                                :
+                                <TaskAltIcon sx={{ width: "20px", height: "20px", color: "#113cfd" }} /> 
+                            }
                         </Button>
+                        <Basket 
+                            open={isBasketOpen} 
+                            onClose={() => setIsBasketOpen(false)}
+                        />
                     </Box>
                 </Stack>
             </Box>

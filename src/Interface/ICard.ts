@@ -14,3 +14,13 @@ export interface ICard{
     price: number,
     notAction: number
 }
+export interface ICardShort{
+  "id": number,
+  "name": "string",
+  "price": number,
+  "old_price": number,
+  "stock": number,
+  "images": {
+    "image_url": string
+  }[],
+}

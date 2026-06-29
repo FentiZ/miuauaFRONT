@@ -14,7 +14,7 @@ const position = {
   top: "50%", left: "50%",
   transform: 'translate(-50%, -50%)',
   bgcolor: "#fff", fontSize: "16px",
-  width: "340px", height: "388px",
+  width: {md: "340px", xs: "100%"}, height: {md: "388px", xs: "100%"},
   padding: "32px 40px 40px 40px",
   border: "none",
   borderRadius: "6px",
@@ -32,7 +32,6 @@ const Login = forwardRef<LoginRef>((_props, ref) => {
     close: () => setOpen(false),
   }));
   
-
   return (
 
     <Modal 
@@ -41,9 +40,8 @@ const Login = forwardRef<LoginRef>((_props, ref) => {
         aria-labelledby="keep-mounted-modal-title"
         aria-describedby="keep-mounted-modal-description"    
         slotProps={{ backdrop: { sx: { backgroundColor: "rgba(0, 0, 0, 0.5)" } } }}
-
     >
-      <Box sx={[position, {}]}>
+      <Box sx={[position, {boxSizing: {xs: "border-box", md: "content-box"}}]}>
         <Box sx={{display: "flex", justifyContent: "space-between", mb: "40px"}}>
           <Typography sx={{fontSize: "22px"}}>{t("exit")}</Typography>
           <CloseIcon onClick={() => setOpen(false)} sx={{cursor: "pointer"}}/>
@@ -53,7 +51,5 @@ const Login = forwardRef<LoginRef>((_props, ref) => {
     </Modal>
   );
 });
-
-Login.displayName = "Login";
 
 export default Login;

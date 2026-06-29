@@ -3,6 +3,7 @@ import { Footer } from "./Components/Footer/Footer"
 import Header from "./Components/Header/Header"
 import { createContext, type Dispatch, type SetStateAction } from "react";
 import Home from "./Components/page/Home";
+import { CardInfo } from "./Components/page/CardInfo";
 
 interface MenuContextType {
   setTab: Dispatch<SetStateAction<number>>;
@@ -16,7 +17,8 @@ function App() {
       <Header></Header>
       <main>
         <Routes>
-          <Route index element={<Home />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/card" element={<CardInfo />} />
         </Routes>
       </main>
       <Footer></Footer>
