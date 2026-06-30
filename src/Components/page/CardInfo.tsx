@@ -5,42 +5,24 @@ import {useNavigate, useParams } from "react-router";
 import type { IFullCard, IProductImage, ISpecification } from "../../Interface/ICard";
 import CheckIcon from '@mui/icons-material/Check';
 import BalanceOutlinedIcon from '@mui/icons-material/BalanceOutlined';
-import { 
-  Grid, 
-  Typography, 
-  Button, 
-  Stack, 
-  IconButton, 
-  Paper,
-  CircularProgress 
-} from "@mui/material";
-import {
-  ShoppingCart,
-  NavigateBefore,
-  NavigateNext,
-  FavoriteBorder,
-  PhoneInTalk,
-  BarChart
-} from '@mui/icons-material';
+import { Grid, Typography, Button, Stack, IconButton, Paper, CircularProgress } from "@mui/material";
+import {ShoppingCart, NavigateBefore, NavigateNext,FavoriteBorder,} from '@mui/icons-material';
 import Basket from "../Basket";
 export function CardInfo() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  // 1. СНАЧАЛА ОБЪЯВЛЯЕМ АБСОЛЮТНО ВСЕ СТЙТЫ И ХУКИ (В САМОМ ВЕРХУ)
   const [isBasketOpen, setIsBasketOpen] = useState(false);
   const [getCard, setCard] = useState<IFullCard | undefined>(undefined);
   const [activeImgIndex, setActiveImgIndex] = useState<number>(0);
   const [activeTab, setActiveTab] = useState<number>(0);
 
-  // Функция проверки корзины, которая безопасно работает по ID из URL
   const checkCartStatus = (): boolean => {
     try {
       const savedCart = localStorage.getItem('cart');
       if (!savedCart || savedCart === "undefined" || savedCart === "null") return false;
       
       const currentCart = JSON.parse(savedCart);
-      // Используем Number(id) из useParams, так как он доступен СРАЗУ
       return Array.isArray(currentCart) && currentCart.some((item: any) => item.id === Number(id));
     } catch (error) {
       return false;
@@ -161,7 +143,6 @@ export function CardInfo() {
         </Typography>
       </Box>
 
-      {/* 3. Вкладки навигации (Якоря) */}
       <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 4 }}>
         <Tabs 
           value={activeTab} 
@@ -257,7 +238,7 @@ export function CardInfo() {
           </Box>
         </Grid>
 
-        {/* ПРАВАЯ КОЛОНКА: Блок покупки и цен (занимает 6 долей из 12) */}
+        {/* ПРАВАЯ КОЛОНКА: Блок покупки и цен*/}
         <Grid size={{ xs:12, sm:6}}>
           <Paper 
             variant="outlined" 
@@ -286,7 +267,7 @@ export function CardInfo() {
             {/* Блок Цены и Кнопок */}
             <Grid container spacing={2} sx={{ alignItems:"center"}}>
               <Grid size={{ xs:12, sm:6}}>
-                {/* Старая зачеркнутая цена */}
+                {/* Старая цена */}
                 {getCard.old_price && (
                   <Typography 
                     variant="body2" 
@@ -305,7 +286,7 @@ export function CardInfo() {
                   {formatPrice(getCard.price)}
                   <Box component="span" sx={{ fontSize: '1.2rem', fontWeight: 'normal', ml: 0.5 }}>₴</Box>
                 </Typography>
-                {/* Автоматический расчет кэшбэка 1% */}
+                {/* расчет кэшбэка 1% */}
                 <Typography variant="body2" sx={{ color: '#2e7d32', fontWeight: '500', mt: 0.5 }}>
                   {Math.round(getCard.price * 0.01)} ₴ кэшбэк
                 </Typography>

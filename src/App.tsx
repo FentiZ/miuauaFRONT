@@ -1,10 +1,10 @@
-import { Link, Route, Routes } from "react-router"
+import { Route, Routes } from "react-router"
 import { Footer } from "./Components/Footer/Footer"
 import Header from "./Components/Header/Header"
 import { createContext, type Dispatch, type SetStateAction } from "react";
 import Home from "./Components/page/Home";
 import { CardInfo } from "./Components/page/CardInfo";
-
+import ProductСompare from "./Components/page/ProductСompare"
 interface MenuContextType {
   setTab: Dispatch<SetStateAction<number>>;
 }
@@ -19,6 +19,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home/>} />
           <Route path="cardInfo/:id" element={<CardInfo /> } />
+          <Route path="product_compare/" element={<ProductСompare /> } />
         </Routes>
       </main>
       <Footer></Footer>

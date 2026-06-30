@@ -1,16 +1,18 @@
 import type { ICardShort, IFullCard } from "../Interface/ICard";
 import mainSrc from "./mainSrc";
 
-export async function GetProductIDs(id: number[]){
-    const cart : ICardShort[] = [];
+export async function GetProductIDs<T = ICardShort>(id: number[]): Promise<T[]> {
+    const cart: T[] = [];
+    
     for (let index = 0; index < id.length; index++) {
-        const responce = await fetch(`${mainSrc}/products/${id[index]}`)
-        const data : ICardShort = await responce.json();         
+        const responce = await fetch(`${mainSrc}/products/${id[index]}`);
+        const data: T = await responce.json();         
         cart.push(data);
     }
 
-    return cart
+    return cart;
 }
+
 export async function GetProductID(id: number){
     const responce = await fetch(`${mainSrc}/products/${id}`)
     if(responce.status < 200 || responce.status > 299){

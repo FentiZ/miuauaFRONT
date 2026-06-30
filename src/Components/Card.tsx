@@ -12,6 +12,8 @@ import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import Basket from "./Basket";
 import { Link } from "react-router";
+import { checkCartStatus } from "../utils/checkCartStatus";
+import { handleAddToCart } from "../utils/addCard";
 
 const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
   <Tooltip describeChild {...props} classes={{ popper: className }} />
@@ -80,59 +82,25 @@ function Card(card: ICard){
     const {t} = useTranslation("card");
     const [isBasketOpen, setIsBasketOpen] = useState(false);
 
-    const checkCartStatus = (): boolean => {
-        try {
-            const savedCart = localStorage.getItem('cart');
-            if (!savedCart || savedCart === "undefined" || savedCart === "null") return false;
-            
-            const currentCart = JSON.parse(savedCart);
-            return Array.isArray(currentCart) && currentCart.some((item: any) => item.id === card.id);
-        } catch (error) {
-            return false;
-        }
-    };
-
-    const [isInCart, setIsInCart] = useState<boolean>(() => checkCartStatus());
+    const [isInCart, setIsInCart] = useState<boolean>(() => checkCartStatus("cart", card.id));
+    const [isInCartСomp, setIsInCartСomp] = useState<boolean>(() => checkCartStatus("cart", card.id));
 
     useEffect(() => {
         const handleStorageChange = () => {
-            setIsInCart(checkCartStatus());
+            setIsInCart(checkCartStatus("cart", card.id));
+            setIsInCartСomp(checkCartStatus("comparison", card.id));
         };
 
+        window.addEventListener('cartUpdate', handleStorageChange);
         window.addEventListener('storage', handleStorageChange);
         
         return () => {
+            window.addEventListener('cartUpdate', handleStorageChange);
             window.removeEventListener('storage', handleStorageChange);
         };
     }, [card.id]);
 
-    const handleAddToCart = () => {
-        let currentCart = [];
-        try {
-            const savedCart = localStorage.getItem('cart');
-            if (savedCart && savedCart !== "undefined" && savedCart !== "null") {
-                currentCart = JSON.parse(savedCart);
-            }
-            if (!Array.isArray(currentCart)) currentCart = [];
-        } catch (e) {
-            localStorage.removeItem('cart');
-            currentCart = [];
-        }
-        
-        const existingItem = currentCart.find((item: any) => item.id === card.id);
-        let updatedCart;
 
-        if (!existingItem) {
-            updatedCart = [...currentCart, { id: card.id, quantity: 1 }];    
-        } else {
-            updatedCart = currentCart; 
-        }
-
-        localStorage.setItem('cart', JSON.stringify(updatedCart));
-        setIsInCart(true);
-
-        window.dispatchEvent(new Event('storage'));
-    };
     return(
         <Box    
             sx={{
@@ -269,7 +237,7 @@ function Card(card: ICard){
                                 top: card.star? "18px" : "0px" 
                             }}
                         >
-                            <Box sx={{width: "20px", height: "20px", color: "#5285cc","&:hover": {color: "#ff7e29"}}}> 
+                            <Box onClick={() => {handleAddToCart("comparison", card.id)}} sx={{cursor: "pointer",width: "20px", height: "20px", color: isInCartСomp ? "#ff7e29" : "#5285cc","&:hover": {color: "#ff7e29"}}}> 
                                 <BalanceOutlinedIcon sx={{width: "20px", height: "20px"}}/>
                             </Box>
             
@@ -296,7 +264,7 @@ function Card(card: ICard){
                             </Typography>                    
                         </Box>
                         <Button variant="contained" 
-                            onClick={handleAddToCart}
+                            onClick={() => {handleAddToCart("cart", card.id)}}
                             sx={{
                                 bgcolor: !isInCart ? "#FF6900" : "#F2F2F2",
                                 "&:hover": {

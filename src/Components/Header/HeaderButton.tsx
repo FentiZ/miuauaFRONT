@@ -6,6 +6,8 @@ import { Badge, Box, Divider, Stack} from '@mui/material';
 import Login, { type LoginRef } from '../Autorization/Login';
 import React, { useEffect, useState } from 'react';
 import Basket from '../Basket';
+import { Link } from 'react-router';
+import getCartCount from '../../utils/getCard';
 
 const boxStyle = {
     width: {lg: "40px", md: "40px", xs: "30px"},
@@ -32,33 +34,22 @@ function HeaderButton(){
     
     const loginRef = React.useRef<LoginRef>(null);
     
-    const getCartCount = (): number => {
-        try {
-            const savedCart = localStorage.getItem('cart');
-            if (!savedCart || savedCart === "undefined" || savedCart === "null") return 0;
-            
-            const currentCart = JSON.parse(savedCart);
-            if (!Array.isArray(currentCart)) return 0;
-            return currentCart.reduce((totalSum, item)=>{
-                const itemQuantity = item.quantity ? Number(item.quantity) : 0;
-                return totalSum + itemQuantity;
-            }, 0)
 
-        } catch (e) {
-            return 0;
-        }
-    };
 
-    const [count, setCount] = useState<number>(() => getCartCount());
+    const [count, setCount] = useState<number>(() => getCartCount("cart"));
+    const [countСomp, setCountСomp] = useState<number>(() => getCartCount("comparison"));
 
     useEffect(() => {
         const handleStorageChange = () => {
-            setCount(getCartCount()); 
+            setCount(getCartCount("cart")); 
+            setCountСomp(getCartCount("comparison"));
         };
 
+        window.addEventListener('cartUpdate', handleStorageChange);
         window.addEventListener('storage', handleStorageChange);
         
         return () => {
+            window.addEventListener('cartUpdate', handleStorageChange);
             window.removeEventListener('storage', handleStorageChange);
         };
     }, []);
@@ -82,13 +73,19 @@ function HeaderButton(){
             
             <Divider orientation="vertical" variant="middle" flexItem sx={dividerStyle} />
             
-            <Box sx={[
+            <Box    
+                component={Link}
+                to={"product_compare"}
+                sx={[
                     boxStyle,
                     {
+                        color: "black",
                         display: {lg: "flex", md: "none", xs: "none"},
                     }
                 ]}>
-                <BalanceOutlinedIcon sx={iconsStyle}/>
+                <Badge badgeContent={countСomp} color="error" sx={{".css-100tl8u-MuiBadge-badge": {bgcolor: "#FF6900"}}}>
+                    <BalanceOutlinedIcon sx={iconsStyle}/>
+                </Badge>
             </Box>
             
             <Divider orientation="vertical" variant="middle" flexItem sx={dividerStyle} />
