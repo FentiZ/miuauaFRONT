@@ -5,6 +5,7 @@ import { createContext, type Dispatch, type SetStateAction } from "react";
 import Home from "./Components/page/Home";
 import { CardInfo } from "./Components/page/CardInfo";
 import ProductСompare from "./Components/page/ProductСompare"
+import Pay from "./Components/page/Pay";
 interface MenuContextType {
   setTab: Dispatch<SetStateAction<number>>;
 }
@@ -20,6 +21,7 @@ function App() {
           <Route path="/" element={<Home/>} />
           <Route path="cardInfo/:id" element={<CardInfo /> } />
           <Route path="product_compare/" element={<ProductСompare /> } />
+          <Route path="pay/" element={<Pay /> } />
         </Routes>
       </main>
       <Footer></Footer>

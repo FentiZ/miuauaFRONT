@@ -193,18 +193,21 @@ function Basket({ open, onClose }: BasketProps){
                                 <Typography sx={{fontSize: "16px"}}>
                                     {t("all")} {totalOrderPrice.toLocaleString('ru-RU')} ₴
                                 </Typography>
-                                <Button variant="contained" 
-                                    sx={{
-                                        bgcolor: "#FF6900",
-                                        textTransform: 'none',
-                                        fontWeight: 700,
-                                        minWidth: 0,
-                                        p: "10px",
-                                        height: "32px"                            
-                                    }}
-                                >
-                                    {t("order")}
-                                </Button>
+                                <Link to={"pay/"}>
+                                    <Button onClick={onClose}
+                                        variant="contained" 
+                                        sx={{
+                                            bgcolor: "#FF6900",
+                                            textTransform: 'none',
+                                            fontWeight: 700,
+                                            minWidth: 0,
+                                            p: "10px",
+                                            height: "32px"                            
+                                        }}
+                                    >
+                                        {t("order")}
+                                    </Button>
+                                </Link>
                             </Stack>
                         </Box>
                     )
